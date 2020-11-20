@@ -16,13 +16,13 @@ terraform {
   }
 }
 
-
+/*
 provider "azurerm" {
   features {}
   //version = ">= 2.26"
 
 }
-
+*/
 
 resource "azurerm_resource_group" "rg" {
   name     = "testtf-rg"
