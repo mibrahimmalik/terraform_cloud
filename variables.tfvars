@@ -7,7 +7,7 @@ provider "azurerm" {
   tenant_id = var.tenant_id
 
 }
-
+/*
 variable "subscription_id" {
     description = "subscription_id"
     default = "f6a7adc2-197c-4935-8b0c-2a8b39cc51b7"
@@ -26,3 +26,4 @@ variable "client_id" {
     description = "Service Principal Application ID"
     default = "085ba033-30e5-472c-b4ca-5cd2b964fc9f"
 }
+*/
