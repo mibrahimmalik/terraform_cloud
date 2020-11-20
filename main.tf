@@ -8,6 +8,7 @@ terraform {
   }
     backend "remote" {
     organization = "mibfirstorg"
+    hostname = "app.terraform.io"
 
     workspaces {
       name = "terraform_cloud"
