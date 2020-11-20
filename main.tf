@@ -14,6 +14,8 @@ terraform {
       name = "terraform_cloud"
     }
   }
+
+  features {}
 }
 
 /*
