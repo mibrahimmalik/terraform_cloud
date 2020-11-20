@@ -10,7 +10,7 @@ terraform {
     organization = "mibfirstorg"
 
     workspaces {
-      name = "firstws"
+      name = "terraform_cloud"
     }
   }
 }
