@@ -15,4 +15,9 @@ resource "azurerm_virtual_network" "vnet" {
         address_prefix = "10.1.5.0/24"
     }
 
+    subnet {
+        name = "subnet2"
+        address_prefix = var.subnet2_address_prefix
+    }
+
 }
