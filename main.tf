@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "rg" {
     }
 
 }
-
+/*
 resource "azurerm_virtual_network" "vnet" {
     name = "tf-vnet"
     address_space = ["10.1.0.0/16"]
@@ -19,7 +19,7 @@ resource "azurerm_virtual_network" "vnet" {
         environment = "dev"
     }
 
-
+   
     subnet {
         name = "subnet1"
         address_prefix = var.subnet1_address_prefix
@@ -36,4 +36,10 @@ resource "azurerm_virtual_network" "vnet" {
         name = "subnet4"
         address_prefix = var.subnet4_address_prefix
     }
+    
+}
+*/
+
+data "azurerm_virtual_network" "mydata"{
+    name = "tf-vnet"
 }
