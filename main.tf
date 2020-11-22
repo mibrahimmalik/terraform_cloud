@@ -10,10 +10,8 @@ resource "azurerm_resource_group" "rg" {
     lifecycle {
       prevent_destroy = true
     }
-
-
 }
-
+/*
 resource "azurerm_virtual_network" "vnet" {
     name = "tf-vnet"
     address_space = ["10.1.0.0/16"]
@@ -46,7 +44,7 @@ resource "azurerm_virtual_network" "vnet" {
         address_prefix = var.subnet4_address_prefix
     }    
 }
-
+*/
 data "azurerm_virtual_network" "mydata"{
     name = "tf-vnet"
     resource_group_name = azurerm_resource_group.rg.name
