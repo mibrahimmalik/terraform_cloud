@@ -1,1 +1,0 @@
-variable "subnet2_address_prefix" {}
