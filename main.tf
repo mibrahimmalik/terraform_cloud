@@ -44,6 +44,7 @@ data "azurerm_virtual_network" "mydata"{
     resource_group_name = azurerm_resource_group.rg.name
 
       depends_on = [
-    azurerm_virtual_network.vnet
+    azurerm_virtual_network.vnet,
+    azurerm_resource_group.rg
   ]
 }
