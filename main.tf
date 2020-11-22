@@ -7,6 +7,11 @@ resource "azurerm_resource_group" "rg" {
         owner = "Muhammad Ibrahim"
     }
 
+    lifecycle {
+      prevent_destroy = true
+    }
+
+
 }
 
 resource "azurerm_virtual_network" "vnet" {
