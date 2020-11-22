@@ -42,4 +42,8 @@ resource "azurerm_virtual_network" "vnet" {
 data "azurerm_virtual_network" "mydata"{
     name = "tf-vnet"
     resource_group_name = azurerm_resource_group.rg.name
+
+      depends_on = [
+    azurerm_virtual_network.vnet
+  ]
 }
