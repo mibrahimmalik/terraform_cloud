@@ -19,6 +19,10 @@ resource "azurerm_virtual_network" "vnet" {
         environment = "dev"
     }
 
+    lifecycle {
+      prevent_destroy = true
+    }
+
    
     subnet {
         name = "subnet1"
