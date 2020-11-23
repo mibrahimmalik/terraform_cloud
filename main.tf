@@ -44,7 +44,7 @@ resource "azurerm_virtual_network" "vnet" {
         address_prefix = var.subnet4_address_prefix
     }    
 }
-
+/*
 data "azurerm_virtual_network" "mydata"{
     name = "tf-vnet"
     resource_group_name = azurerm_resource_group.rg.name
@@ -54,3 +54,4 @@ data "azurerm_virtual_network" "mydata"{
    azurerm_resource_group.rg
   ]
 }
+*/
