@@ -10,3 +10,4 @@ output "vnet_id"{
     description = "vnet ID"
 }
 
+*/
