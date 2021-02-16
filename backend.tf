@@ -10,7 +10,7 @@ terraform {
     resource_group_name  = "MainRG"
     storage_account_name = "mittfstate"
     container_name       = "tfstate"
-    key                  = "testing.azure.tfstate"
+    key                  = "demo.azure.tfstate"
   }  
 }
 

@@ -27,10 +27,30 @@ resource "azurerm_resource_group" "rg2" {
     }
 }
 
+
+resource "azurerm_resource_group" "ungle_rg" {
+  # Manually imported through "terraform import" command
+    name     = "ungle_rg"  
+    location = "uksouth"
+}
+
+resource "azurerm_virtual_network" "ungle_vnet" {
+  # Manually imported through "terraform import" command
+  name = "ungle_vnet"
+  resource_group_name = azurerm_resource_group.ungle_rg.name
+  location = "uksouth"
+  address_space = ["10.2.0.0/16"]
+
+      subnet {
+        name = "default"
+        address_prefix = "10.2.0.0/24"
+    }
+}
+
 resource "azurerm_virtual_network" "vnet" {
     name = "tf-vnet"
     address_space = ["10.1.0.0/16"]
-    resource_group_name = azurerm_resource_group.rg.name
+    resource_group_name = azurerm_resource_group.rg1.name
     location = "uksouth"
 
     tags = {
