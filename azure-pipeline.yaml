@@ -28,7 +28,7 @@ steps:
     backendAzureRmResourceGroupName: 'MainRG'
     backendAzureRmStorageAccountName: 'mittfstate'
     backendAzureRmContainerName: 'tfstate'
-    backendAzureRmKey: 'demo.terraform.tfstate'
+    backendAzureRmKey: 'demo.azure.tfstate'
 
 - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
   inputs:
