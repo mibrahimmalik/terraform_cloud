@@ -21,7 +21,7 @@ steps:
        
 
 - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-name: Terraform Init
+  name: Terraform Init
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -32,7 +32,7 @@ name: Terraform Init
     backendAzureRmKey: 'devops.terraform.tfstate'
 
 - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-name: Terraform Plan
+  name: Terraform Plan
   inputs:
     provider: 'azurerm'
     command: 'plan'
