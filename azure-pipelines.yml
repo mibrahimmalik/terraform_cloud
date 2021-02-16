@@ -1,0 +1,48 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: |
+    echo 'terraform version: '
+    terraform version
+    echo 'present working directory:'
+    pwd
+    ls -lrt
+    export
+  displayName: get info
+       
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+  displayName: 'terraform init'
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: 'Mussrat - Free Trial(f6a7adc2-197c-4935-8b0c-2a8b39cc51b7)'
+    backendAzureRmResourceGroupName: 'aks-rg'
+    backendAzureRmStorageAccountName: 'mibtfstate'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'dev.terraform.tfstate'
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+  displayName: terraform plan
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    commandOptions: -lock=false -input=false
+    environmentServiceNameAzureRM: 'Mussrat - Free Trial(f6a7adc2-197c-4935-8b0c-2a8b39cc51b7)'
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+  displayName: terraform apply
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    environmentServiceNameAzureRM: 'Mussrat - Free Trial(f6a7adc2-197c-4935-8b0c-2a8b39cc51b7)'
+    commandOptions: -lock=false -input=false
