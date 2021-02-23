@@ -54,8 +54,9 @@ stages:
           name: publish_artifact
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-            ArtifactName: 'tfstate'
-            publishLocation: 'tfstate'
+            ArtifactName: '$(Build.BuildId)-tfplan'
+            publishLocation: 'Container'
+            displayName: 'Publish Plan Artifact'
 
   - stage: Terraform_Apply
     displayName: Terraform_Apply
@@ -65,10 +66,8 @@ stages:
         - task: DownloadBuildArtifacts@0
           name: download_artifact
           inputs:
-            buildType: 'current'
-            downloadType: 'single'
-            artifactName: 'tfstate'
-            downloadPath: '$(Build.ArtifactStagingDirectory)'
+            artifactName: '$(Build.BuildId)-tfplan'
+            displayName: 'Download Plan Artifact'
         
         - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
           name: terraform_apply
