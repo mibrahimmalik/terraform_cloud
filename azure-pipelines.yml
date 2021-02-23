@@ -14,38 +14,52 @@ variables:
 - name: svc_connection
   value: svc_devtest
   
+stages:
+  - stage: Terraform_Plan
+    displayName: Terraform_Plan
+    jobs: 
+      - job: terraform_plan      
+        steps:
+        - script: |
+            echo 'terraform version: '
+            terraform version
+            echo 'present working directory:'
+            pwd
+            ls -lrt
+            export
+          displayName: get info             
 
-steps:
-- script: |
-    echo 'terraform version: '
-    terraform version
-    echo 'present working directory:'
-    pwd
-    ls -lrt
-    export
-  displayName: get info
-       
+        - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+          name: terraform_init
+          displayName: terraform_init
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            backendServiceArm: $(svc_connection)
+            backendAzureRmResourceGroupName: 'ss-rg'
+            backendAzureRmStorageAccountName: 'mibtfstate'
+            backendAzureRmContainerName: 'tfstate'
+            backendAzureRmKey: 'demo.azure.tfstate'
 
-- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    backendServiceArm: $(svc_connection)
-    backendAzureRmResourceGroupName: 'ss-rg'
-    backendAzureRmStorageAccountName: 'mibtfstate'
-    backendAzureRmContainerName: 'tfstate'
-    backendAzureRmKey: 'demo.azure.tfstate'
+        - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+          name: terraform_plan
+          displayName: terraform_plan
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            commandOptions: '-lock=false -input=false'
+            environmentServiceNameAzureRM: $(svc_connection)
 
-- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-  inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    commandOptions: '-lock=false -input=false'
-    environmentServiceNameAzureRM: $(svc_connection)
-
-- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-  inputs:
-    provider: 'azurerm'
-    command: 'apply'
-    commandOptions: '-lock=false -input=false'
-    environmentServiceNameAzureRM: $(svc_connection)
+  - stage: Terraform_Apply
+    displayName: Terraform_Apply
+    jobs: 
+      - job: terraform_apply      
+        steps:
+        - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+          name: terraform_apply
+          displayName: terraform_apply
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            commandOptions: '-lock=false -input=false'
+            environmentServiceNameAzureRM: $(svc_connection)
