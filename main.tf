@@ -58,22 +58,22 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 
-resource "azurerm_resource_group" "testing1_rg" {
+resource "azurerm_resource_group" "testing2_rg" {
   # Manually imported through "terraform import" command
-    name     = "testing1_rg"  
+    name     = "testing2_rg"  
     location = "uksouth"
 }
 
-resource "azurerm_virtual_network" "testing1_vnet1" {
+resource "azurerm_virtual_network" "testing2_vnet1" {
   # Manually imported through "terraform import" command
-  name = "testing1_vnet1"
-  resource_group_name = azurerm_resource_group.testing1_rg.name
-  location = azurerm_resource_group.testing1_rg.location
+  name = "testing2_vnet1"
+  resource_group_name = azurerm_resource_group.testing2_rg.name
+  location = azurerm_resource_group.testing2_rg.location
   
   address_space = ["10.5.0.0/16"]
 
       subnet {
-        name = "testing1-subnet"
+        name = "testing2-subnet"
         address_prefix = "10.5.0.0/24"
     }
 }
