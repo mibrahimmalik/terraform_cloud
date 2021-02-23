@@ -51,8 +51,8 @@ stages:
             environmentServiceNameAzureRM: $(svc_connection)
 
         - task: PublishBuildArtifacts@1
+          name: Publish Artifact
           inputs:
-          name: Publish_Artifact
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
             ArtifactName: 'tfstate'
             publishLocation: 'tfstate'
@@ -63,6 +63,7 @@ stages:
       - job: terraform_apply      
         steps:
         - task: DownloadBuildArtifacts@0
+          name: download artifact
           inputs:
             buildType: 'current'
             downloadType: 'single'
