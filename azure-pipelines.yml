@@ -50,11 +50,25 @@ stages:
             commandOptions: '-lock=false -input=false'
             environmentServiceNameAzureRM: $(svc_connection)
 
+        - task: PublishBuildArtifacts@1
+          inputs:
+          name: Publish_Artifact
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'tfstate'
+            publishLocation: 'tfstate'
+
   - stage: Terraform_Apply
     displayName: Terraform_Apply
     jobs: 
       - job: terraform_apply      
         steps:
+        - task: DownloadBuildArtifacts@0
+          inputs:
+            buildType: 'current'
+            downloadType: 'single'
+            artifactName: 'tfstate'
+            downloadPath: '$(System.ArtifactsDirectory)'
+        
         - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
           name: terraform_apply
           displayName: terraform_apply
