@@ -68,7 +68,7 @@ stages:
             buildType: 'current'
             downloadType: 'single'
             artifactName: 'tfstate'
-            downloadPath: '$(System.ArtifactsDirectory)'
+            downloadPath: '$(Build.ArtifactStagingDirectory)'
         
         - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
           name: terraform_apply
