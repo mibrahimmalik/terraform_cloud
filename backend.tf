@@ -16,7 +16,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "MainRG"
+    resource_group_name  = "ss-rg"
     storage_account_name = "mibtfstate"
     container_name       = "tfstate"
     key                  = "demo.azure.tfstate"
