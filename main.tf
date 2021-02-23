@@ -8,9 +8,6 @@ resource "azurerm_resource_group" "rg1" {
         owner = "Muhammad Ibrahim"
     }
 
-    lifecycle {
-      prevent_destroy = true
-    }
 }
 
 resource "azurerm_resource_group" "rg2" {
@@ -20,10 +17,6 @@ resource "azurerm_resource_group" "rg2" {
     tags = {
         environment = "Terraform RG2"
         owner = "Muhammad Ibrahim"
-    }
-
-    lifecycle {
-      prevent_destroy = true
     }
 }
 
@@ -57,9 +50,6 @@ resource "azurerm_virtual_network" "vnet" {
         environment = "Terraform RG1"
     }
 
-    lifecycle {
-      prevent_destroy = true
-    }   
     subnet {
         name = "subnet1"
         address_prefix = "10.1.1.0/24"
