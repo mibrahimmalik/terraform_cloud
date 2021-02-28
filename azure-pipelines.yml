@@ -102,6 +102,7 @@ stages:
 
   - stage: Terraform_Destroy
     displayName: Terraform_Destroy
+    dependsOn: Terraform_Plan
     jobs: 
       - job: terraform_destroy      
         steps:
