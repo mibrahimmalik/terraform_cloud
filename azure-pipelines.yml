@@ -34,7 +34,7 @@ variables:
   - name: command
     value: 'destroy'
 
- - ${{ if eq(parameters.destroy, false) }}:
+- ${{ if eq(parameters.destroy, false) }}:
   - name: command
     value: 'apply'
 
