@@ -53,6 +53,17 @@ stages:
             commandOptions: '-lock=false -input=false'
             environmentServiceNameAzureRM: $(svc_connection)
 
+        - task: ArchiveFiles@2
+          name: archive_artifact
+          inputs:
+            rootFolderOrFile: '$(Build.SourcesDirectory)'
+            includeRootFolder: false
+            archiveType: 'tar'
+            tarCompression: 'gz'
+            archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).tgz'
+            replaceExistingArchive: true
+            displayName: 'Create Plan Artifact'
+
         - task: PublishBuildArtifacts@1
           name: publish_artifact
           inputs:
@@ -66,12 +77,21 @@ stages:
     jobs: 
       - job: terraform_apply      
         steps:
+        - checkout: none
+
         - task: DownloadBuildArtifacts@0
           name: download_artifact
           inputs:
             artifactName: '$(Build.BuildId)-tfplan'
             displayName: 'Download Plan Artifact'
-        
+
+        - task: ExtractFiles@1
+          inputs:
+            archiveFilePatterns: '$(System.ArtifactsDirectory)/$(Build.BuildId)-tfplan/$(Build.BuildId).tgz'
+            destinationFolder: '$(System.DefaultWorkingDirectory)/'
+            cleanDestinationFolder: false
+            displayName: 'Extract Terraform Plan Artifact'
+
         - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
           name: terraform_apply
           displayName: terraform_apply
