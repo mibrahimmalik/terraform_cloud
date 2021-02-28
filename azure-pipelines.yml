@@ -99,3 +99,32 @@ stages:
             command: 'apply'
             commandOptions: '-lock=false -input=false'
             environmentServiceNameAzureRM: $(svc_connection)
+
+  - stage: Terraform_Destroy
+    displayName: Terraform_Destroy
+    jobs: 
+      - job: terraform_destroy      
+        steps:
+        - checkout: none
+
+        - task: DownloadBuildArtifacts@0
+          name: download_artifact
+          inputs:
+            artifactName: '$(Build.BuildId)-tfplan'
+            displayName: 'Download Plan Artifact'
+
+        - task: ExtractFiles@1
+          inputs:
+            archiveFilePatterns: '$(System.ArtifactsDirectory)/$(Build.BuildId)-tfplan/$(Build.BuildId).tgz'
+            destinationFolder: '$(System.DefaultWorkingDirectory)/'
+            cleanDestinationFolder: false
+            displayName: 'Extract Terraform Plan Artifact'
+
+        - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+          name: terraform_destroy
+          displayName: terraform_destroy
+          inputs:
+            provider: 'azurerm'
+            command: 'destroy'
+            commandOptions: '-lock=false -input=false'
+            environmentServiceNameAzureRM: $(svc_connection)
