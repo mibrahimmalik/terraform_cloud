@@ -36,11 +36,6 @@ variables:
   - name: command
     value: 'destroy'
 
-
-#- ${{ if eq(parameters.destroy, true) }}:
-#- ${{ if eq(parameters.destroy, false) }}:
-
-
 stages:
   - stage: Terraform_Plan
     displayName: Terraform_Plan
