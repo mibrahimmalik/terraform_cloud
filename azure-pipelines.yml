@@ -12,7 +12,6 @@ pr: none
 pool:
   vmImage: 'ubuntu-latest'
 
-
 variables:
 - name: svc_connection
   value: svc_devtest
