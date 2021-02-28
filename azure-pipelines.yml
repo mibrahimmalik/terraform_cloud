@@ -10,7 +10,9 @@ parameters:
 
 
 name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
- 
+
+#name: "${{ parameters.subscription }} ~ (${{ parameters.module }})"
+
 trigger: none
  
 pr: none
@@ -25,18 +27,19 @@ variables:
 - ${{ if eq(parameters.destroy, false) }}:
   - name: commandOptions
     value: '-lock=false -input=false'
+  - name: command
+    value: 'apply'
 
 - ${{ if eq(parameters.destroy, true) }}:
   - name: commandOptions
     value: '-destroy -lock=false -input=false'
-
-- ${{ if eq(parameters.destroy, true) }}:
   - name: command
     value: 'destroy'
 
-- ${{ if eq(parameters.destroy, false) }}:
-  - name: command
-    value: 'apply'
+
+#- ${{ if eq(parameters.destroy, true) }}:
+#- ${{ if eq(parameters.destroy, false) }}:
+
 
 stages:
   - stage: Terraform_Plan
