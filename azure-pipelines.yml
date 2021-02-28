@@ -3,6 +3,12 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+parameters:
+  - name: destroy
+    type: boolean
+    default: false
+
+
 name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
  
 trigger: none
@@ -15,7 +21,15 @@ pool:
 variables:
 - name: svc_connection
   value: svc_devtest
-  
+
+- ${{ if eq(parameters.destroy, false) }}:
+  - name: commandOptions
+    value: '-lock=false -input=false'
+
+- ${{ if eq(parameters.destroy, true) }}:
+  - name: commandOptions
+    value: '-destroy -lock=false -input=false'
+
 stages:
   - stage: Terraform_Plan
     displayName: Terraform_Plan
@@ -49,7 +63,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'plan'
-            commandOptions: '-lock=false -input=false'
+            commandOptions: $(commandOptions)
             environmentServiceNameAzureRM: $(svc_connection)
 
         - task: ArchiveFiles@2

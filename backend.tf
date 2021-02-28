@@ -20,6 +20,7 @@ terraform {
     storage_account_name = "mibtfstate"
     container_name       = "tfstate"
     key                  = "demo.azure.tfstate"
+    access_key           = "fxfE8ZdtWakiaxWtVd8sIfmhNbHjaTi5c0ISS5rZprVBRfJ9sJjj/VYFPQRXFZAAARGdhD+CovITaz/JicbNkw=="
   }  
 }
 
