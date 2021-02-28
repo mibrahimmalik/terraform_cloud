@@ -30,6 +30,14 @@ variables:
   - name: commandOptions
     value: '-destroy -lock=false -input=false'
 
+- ${{ if eq(parameters.destroy, true) }}:
+  - name: command
+    value: 'destroy'
+
+ - ${{ if eq(parameters.destroy, false) }}:
+  - name: command
+    value: 'apply'
+
 stages:
   - stage: Terraform_Plan
     displayName: Terraform_Plan
@@ -110,7 +118,7 @@ stages:
           displayName: terraform_apply
           inputs:
             provider: 'azurerm'
-            command: 'apply'
+            command: $(command)
             commandOptions: '-lock=false -input=false'
             environmentServiceNameAzureRM: $(svc_connection)
 
